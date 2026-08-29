@@ -1,36 +1,141 @@
-/* Main page with stikky-footer
--------------------------------------------------- */
-html,
+/* =============================================================
+   Bakhtiyar Syed — minimal landing page
+   ============================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, p, ul { margin: 0; }
+img, svg { display: block; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+:root {
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-theme='dark'] {
+  --bg: #0c0c0e;
+  --text: #ededea;
+  --muted: #8d8b86;
+  --border: #26262b;
+  --border-hover: #4a4a52;
+  --hover-bg: #16161a;
+}
+
+html[data-theme='light'] {
+  --bg: #fbfaf8;
+  --text: #17171a;
+  --muted: #6c6a64;
+  --border: #e2dfd8;
+  --border-hover: #b8b3a8;
+  --hover-bg: #f2f0ea;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
 body {
-  position: relative;
-  height: 100%;
-  background-color: #fff;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 21px;
-  /* The html and body elements cannot have any padding or margin. */
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.container {
-  max-width: 960px;
-  padding-top: 5%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color .25s var(--ease), color .25s var(--ease);
 }
 
-.page-not-found{
-  margin: 0 auto;
-  width: 50%;
+:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 6px; }
+::selection { background: var(--text); color: var(--bg); }
+
+/* ---------- Card ---------- */
+.page { width: 100%; }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  max-width: 30rem;
+  margin-inline: auto;
 }
 
-.avatar{
-  padding-top:  30%;
-  padding-bottom: 20px;
+.portrait {
+  width: 104px;
+  height: 104px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: 50% 28%;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  margin-bottom: 1.6rem;
 }
 
-.social{
-  word-spacing: 5px;
+.name {
+  font-size: clamp(1.6rem, 1.4rem + 1vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.line {
+  color: var(--muted);
+  font-size: .96rem;
+  margin-top: .5rem;
+  text-wrap: balance;
+}
+.line--muted { font-size: .88rem; margin-top: .15rem; }
+
+/* ---------- Links ---------- */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem;
+  margin-top: 2rem;
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .95rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: .9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .18s var(--ease), background-color .18s var(--ease), transform .18s var(--ease);
+}
+.links a:hover {
+  border-color: var(--border-hover);
+  background: var(--hover-bg);
+  transform: translateY(-1px);
+}
+.links svg { width: 15px; height: 15px; opacity: .85; }
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  position: fixed;
+  top: 1.1rem;
+  right: 1.1rem;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  color: var(--muted);
+  transition: color .18s var(--ease), background-color .18s var(--ease);
+}
+.theme-toggle:hover { color: var(--text); background: var(--hover-bg); }
+.theme-toggle svg { width: 16px; height: 16px; }
+html[data-theme='dark'] .theme-toggle__moon { display: none; }
+html[data-theme='light'] .theme-toggle__sun { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; }
 }

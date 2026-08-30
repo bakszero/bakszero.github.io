@@ -16,7 +16,7 @@ exclude:
 ###############################################################################
 # Site
 url: https://bakhtiyar.js.org
-baseurl: /
+baseurl: ""
 title: Bakhtiyar Syed
 description: >-
   Bakhtiyar Syed - Staff Software Engineer, Machine Learning at LinkedIn,

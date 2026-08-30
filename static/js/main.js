@@ -1,23 +1,19 @@
 (function () {
   'use strict';
+
+  // Dark is the default. Light only applies if the visitor explicitly chose it,
+  // so the OS colour scheme is deliberately ignored here.
   var root = document.documentElement;
   var toggle = document.querySelector('.theme-toggle');
+  var meta = document.querySelector('meta[name="theme-color"]');
+  var COLOURS = { dark: '#0c0c0e', light: '#fbfaf8' };
 
-  if (toggle) {
-    toggle.addEventListener('click', function () {
-      var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      root.dataset.theme = next;
-      try { localStorage.setItem('theme', next); } catch (e) {}
-    });
-  }
+  if (!toggle) return;
 
-  // Follow the OS unless the visitor has chosen explicitly.
-  var media = window.matchMedia('(prefers-color-scheme: light)');
-  var onChange = function (e) {
-    var stored = null;
-    try { stored = localStorage.getItem('theme'); } catch (err) {}
-    if (!stored) root.dataset.theme = e.matches ? 'light' : 'dark';
-  };
-  if (media.addEventListener) media.addEventListener('change', onChange);
-  else if (media.addListener) media.addListener(onChange);
+  toggle.addEventListener('click', function () {
+    var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    if (meta) meta.setAttribute('content', COLOURS[next]);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
 })();
